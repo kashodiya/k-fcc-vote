@@ -53,13 +53,27 @@
     };
   });
 
+  app.controller('PollsCtrl', function ($http, ConfigFactory) {
+    var that = this;
 
+    this.polls = [];
+    
+    this.getPolls = function () {
+      $http.get('/api/allPolls').success(function (data) {
+        that.polls = data.polls;
+        //TODO: Handle errors
+      });
+    };
+    this.getPolls();
+    
+  });
+
+  
   app.controller('PollCtrl', function ($http, ConfigFactory) {
 
     var that = this;
 
     this.polls = [];
-
     this.getPolls = function () {
       $http.get('/api/polls').success(function (data) {
         that.polls = data.polls;
@@ -67,7 +81,7 @@
       });
     };
     this.getPolls();
-
+    
     this.polls = [
       {
         question: 'What color you like?',
@@ -182,19 +196,14 @@
     
     getData();
     
-    $scope.addVote = function(e){
-      console.log('addvote', e);
-      
-      $http.post('/api/addVote', {id: $scope.id, option: e[0].label}).success(function (data) {
+    $scope.addVote = function(data){
+      $http.post('/api/addVote', {id: $scope.id, option: data.option}).success(function (data) {
         console.log(data);
         if (data.status == 'success') {
           getData();
         }
       });
-      
-    }
-    
-    
+    };
     
   });
 

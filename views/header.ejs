@@ -22,10 +22,12 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/pollList">Polls</a></li>
             <% if (typeof user == 'undefined') { %>
               <li role="presentation"><a href="/login/twitter">Login</a></li>
             <% } else { %>
+              <li role="presentation"><a href="/welcome">My Polls</a></li>
               <li role="presentation"><a href="/logout">Logout</a></li>
             <% }%>
           </ul>

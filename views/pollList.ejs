@@ -1,0 +1,25 @@
+<% include header %>
+
+    <div class="well" ng-controller="PollsCtrl as pollsCtrl">
+      <h4>All Polls</h4>
+      <table class="table table-hover">
+        <tr ng-repeat="poll in pollsCtrl.polls">
+          <td>
+            {{poll.question}} - 
+            {{poll._id}}
+          </td>
+          <td>
+            <a type="button" class="btn btn-default btn-sm" 
+               href="/poll/{{poll._id}}">
+              <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+  </div>
+
+
+
+
+<% include footer %>

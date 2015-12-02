@@ -2,6 +2,9 @@ var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
 
 //Use this to revoke
+//https://twitter.com/settings/applications
+//Use this to manage app
+//https://apps.twitter.com/
 
 module.exports = function (app) {
   var consumerKey = process.env.TWITTER_CONSUMER_KEY;

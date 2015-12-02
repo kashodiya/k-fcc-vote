@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Poll = require('../poll');
+var util = require('../util');
+
 
 router.get('/polls', function (req, res) {
   Poll.find({username: req.user.username}, function (err, polls) {
@@ -14,6 +16,20 @@ router.get('/polls', function (req, res) {
     }
   });
 });
+
+router.get('/allPolls', function (req, res) {
+  Poll.find({}, function (err, polls) {
+    if (err) {
+      res.json({
+        status: 'fail',
+        err: err
+      });
+    } else {
+      res.json({status: 'success', polls: polls});
+    }
+  });
+});
+
 
 router.get('/poll/:id', function (req, res) {
   console.log('finding by id', {
@@ -35,7 +51,7 @@ router.get('/poll/:id', function (req, res) {
   });
 });
 
-router.delete('/poll/:id', function (req, res) {
+router.delete('/poll/:id', util.ensureAuthenticatedApi, function (req, res) {
   console.log('delete by id', {
     reqParam: req.params
   });
@@ -91,12 +107,12 @@ router.post('/addVote', function (req, res, next) {
 
 });
 
-router.post('/createPoll', function (req, res, next) {
+router.post('/createPoll', util.ensureAuthenticatedApi, function (req, res, next) {
   console.log('createPoll', req.body);
   var votes = req.body.options.map(function(c){
     //TODO: Remove random
-    //return 0;
-    return Math.floor(Math.random() * 20);
+    return 0;
+//    return Math.floor(Math.random() * 20);
   });
   var poll = new Poll({
     username: req.user.username,

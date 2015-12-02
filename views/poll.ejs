@@ -11,14 +11,22 @@
   
 <!--  <h5>Data:</h5>-->
   <table class="table">
+    <tr>
+      <th>Option</th>
+      <th>Votes</th>
+    </tr> 
     <tr ng-repeat="data in rawData">
       <td>{{data.option}}</td>
       <td>{{data.vote}}</td>
+      <td>
+        <button ng-click="addVote(data)"
+           type="button" class="btn btn-default btn-sm" 
+           href="/poll/{{poll._id}}" target="_blank">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"> Vote
+        </button>          
+      </td>
     </tr>
   </table>
-  
-  
-  
 </div>
 
 
