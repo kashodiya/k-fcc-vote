@@ -7,7 +7,7 @@ module.exports = function (app) {
   var consumerKey = process.env.TWITTER_CONSUMER_KEY;
   var consumerSecret = process.env.TWITTER_CONSUMER_SECRET;
 //  var callbackURL: 'https://k-vote-app-kashodiya.c9users.io/twitter/callback';
-  var callbackURL = 'http://localhost:3000/twitter/callback';
+  var callbackURL = process.env.BASE_URL + '/twitter/callback';
 
   passport.use(new Strategy({
       consumerKey: consumerKey,
