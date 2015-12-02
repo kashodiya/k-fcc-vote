@@ -5,9 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var errorhandler = require('errorhandler')
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var api = require('./routes/api');
+var session = require('express-session');
 
 var app = express();
 
@@ -21,14 +23,21 @@ mongoose.connection.on('error', function(err) {
   }
 );
 
+var MongoStore = require('connect-mongo')(session);
+app.use(session({
+  secret: 'foo fcc k',
+  saveUninitialized: false,
+  resave: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 //app.set('view engine', 'jade');
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+//app.engine('ejs', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -38,14 +47,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(errorhandler());
+
 // Make our db accessible to our router
 //app.use(function(req,res,next){
 //  req.db = db;
 //  next();
 //});
 
+require('./passport-util')(app);
+
 app.use('/', routes);
-app.use('/users', users);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

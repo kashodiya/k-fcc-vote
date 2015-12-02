@@ -1,0 +1,83 @@
+<% include header %>
+
+<!--user.username-->
+
+
+  <div class="jumbotron">
+    <h1>Welcome</h1>
+    <h2><%= user.displayName %></h2>
+    <p>
+      <a class="btn btn-primary" href="#newPoll">New Poll</a>
+      <a class="btn btn-primary" href="#myPolls">My Polls</a>
+    </p>
+    
+    
+  </div>
+
+
+<!--List of polls-->
+<!--Form to create new poll-->
+  
+  <div ng-controller="PollCtrl as pollCtrl">
+    <a name="newPoll"></a>
+    <div class="well">
+      <h4>Create New Poll</h4>
+      <form novalidate>
+        <div class="form-group">
+          <label for="question">Question:</label>
+          <input class="form-control" id="question"  ng-model="pollCtrl.newPoll.question" required>
+        </div>
+        <div class="form-group">
+          <table class="table table-hover">
+            <tr ng-repeat="option in pollCtrl.newPoll.options track by $index">
+              <td>{{option}}</td>
+              <td>
+                <button type="button" class="btn btn-default btn-sm" 
+                  ng-click="pollCtrl.removeOption($index)">
+                  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </button>          
+              </td>
+            </tr>
+          </table> 
+          <label for="question">Options: [Type and hit enter]</label>
+          <input class="form-control" id="newOption" ng-model="pollCtrl.newOption" 
+          ng-keypress="($event.which === 13)?pollCtrl.addOption():0">
+        </div>
+        <button type="button" class="btn btn-default"
+          ng-click="pollCtrl.createPoll()">Create Poll</button>
+        <h5 ng-hide="pollCtrl.msg == ''">{{pollCtrl.msg}}</h5>  
+        <h5 ng-hide="pollCtrl.newPollUrl == ''">Share this new poll at: 
+        <a target="_blank" href="{{pollCtrl.newPollUrl}}">http://localhost:3000/{{pollCtrl.newPollUrl}}</a> </h5>  
+        <!--TODO: Change above localhost to the actual domain-->
+      </form>    
+    </div>
+
+    <a name="myPolls"></a>
+    <div class="well">
+      <h4>My Polls</h4>
+      <table class="table table-hover">
+        <tr ng-repeat="poll in pollCtrl.polls">
+          <td>
+            {{poll.question}} - 
+            {{poll._id}}
+          </td>
+          <td>
+            <a type="button" class="btn btn-default btn-sm" 
+               href="/poll/{{poll._id}}" target="_blank">
+              <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></a>
+            </button>          
+            <button type="button" class="btn btn-default btn-sm" 
+              ng-click="pollCtrl.deletePoll(poll)">
+              <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+            </button>          
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+  </div>
+
+
+
+
+<% include footer %>

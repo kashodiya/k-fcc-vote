@@ -1,0 +1,25 @@
+<% include header %>
+
+
+<div class="well" ng-controller="PollChartCtrl as pcc">
+  <h3>{{question}}</h3>  
+  <canvas id="bar" class="chart chart-pie"
+    chart-click="addVote"
+    chart-legend="true"
+    chart-data="data" chart-labels="labels">
+  </canvas>
+  
+<!--  <h5>Data:</h5>-->
+  <table class="table">
+    <tr ng-repeat="data in rawData">
+      <td>{{data.option}}</td>
+      <td>{{data.vote}}</td>
+    </tr>
+  </table>
+  
+  
+  
+</div>
+
+
+<% include footer %>

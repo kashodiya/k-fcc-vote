@@ -1,33 +1,13 @@
-<html ng-app="votingApp">
-<head>
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"> 
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"> 
-  <link rel="stylesheet" href="/stylesheets/jumbotron-narrow.css">
-  <link rel="stylesheet" href="/stylesheets/style.css">
-  <script src="/bower_components/angular/angular.min.js"></script>  
-  <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>  
-  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="/javascripts/app.js"></script>  
-  <script src="/javascripts/controllers.js"></script>  
-</head>  
-<body>
-
-<div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">Signup</a></li>
-            <li role="presentation"><a href="#">Login</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">KVote</h3>
-      </div>
-
-      <div class="jumbotron">
+<% include header %>
+            
+     <div class="jumbotron">
         <h1>KVote</h1>
         <p class="lead">Create custom polls and share with the world!</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up</a></p>
+        <p>
+          <a class="btn btn-lg btn-success" href="#" role="button">Sign up</a>
+          OR
+          <a class="btn btn-lg btn-success" href="/login/twitter" role="button">Login with Twitter</a>
+        </p>
       </div>
 
       <div class="row marketing">
@@ -80,19 +60,4 @@
           <button type="button" class="btn btn-default" ng-click="toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
           <div ng-show="selected">Selection from a modal: {{ selected }}</div>
       </div>
-      
-
-      <footer class="footer">
-        <p>&copy; 2015 Company, Inc.</p>
-      </footer>
-
-    </div> <!-- /container -->
-
-
-
-</body>
-
-
-
-
-</html>
+<% include footer %>
